@@ -12,7 +12,9 @@ import CoreData
 class AddPropertyViewController: UIViewController {
     
     var propOwner : PropertyOwner?
-
+    
+    var storedNavBkgColor = String()
+    
     @IBOutlet weak var nameTextField: UITextField!
     @IBOutlet weak var priceTextField: UITextField!
     @IBOutlet weak var locationTextField: UITextField!
@@ -21,12 +23,31 @@ class AddPropertyViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Done", style: UIBarButtonItemStyle.plain, target: self, action: #selector(AddPropertyViewController.buttonDoneTapped))
 
-        // Do any additional setup after loading the view.
+        self.title = "Add Property"
+        
     }
 
 
-    @IBAction func buttonSaveTapped(_ sender: Any) {
+    override func viewWillAppear(_ animated: Bool) {
+        switch storedNavBkgColor {
+        case "purple":
+            self.navigationController?.navigationBar.barTintColor = UIColor.purple
+        case "blue":
+            self.navigationController?.navigationBar.barTintColor = UIColor.blue
+        case "green":
+            self.navigationController?.navigationBar.barTintColor = UIColor.green
+        case "orange":
+            self.navigationController?.navigationBar.barTintColor = UIColor.orange
+        default :
+            break
+        }
+    }
+    
+
+    func buttonDoneTapped() {
         guard
             let inputName = nameTextField.text,
             let inputLocation = locationTextField.text,
@@ -56,25 +77,15 @@ class AddPropertyViewController: UIViewController {
         priceTextField.text = nil
         locationTextField.text = nil
 
-         dismiss(animated: true, completion: nil)
+         //dismiss(animated: true, completion: nil)
+        //navigationController?.popToViewController(AddPropertyViewController, animated: true)
+        navigationController?.popViewController(animated: true)
+
         
-//        //check with database
-//        let subjectRequest = NSFetchRequest<Subject>(entityName: "Subject")
-//        let subjectFilter = NSPredicate(format: "name = %@", subName)
-//        subjectRequest.predicate = subjectFilter
-//        
-//        do {
-//            let data = try DataController.moc.fetch(subjectRequest)
-//            if let oldSubject = data.first {
-//                student?.addToEnroll(oldSubject)
-//            }
     }
     
     
-    @IBAction func buttonCancelTapped(_ sender: Any) {
-         dismiss(animated: true, completion: nil)
-    }
-    
+ 
     
     
 

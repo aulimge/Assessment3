@@ -13,11 +13,14 @@ class ViewController: UIViewController {
 
     //var propertyOwners : [PropertyOwner] = []    //MOC
     var fetchResultController : NSFetchedResultsController<PropertyOwner>!
-    //var selectedColor : String
-    //var selectedRecVar : Int = 0
+    //var selectedRecVar : String
+    
+    var storedNavBkgColor = String()
+    
     
     @IBOutlet weak var tableView: UITableView!
-
+    
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -32,6 +35,7 @@ class ViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         tableView.reloadData()
+        self.navigationController?.navigationBar.barTintColor = UIColor.white
     }
     
     
@@ -92,12 +96,28 @@ class ViewController: UIViewController {
         let alert = UIAlertController(title: "Choose a defaut Color!", message: "", preferredStyle: .alert)
         
         let colorPurple = UIAlertAction(title: "Purple", style: .default) { (action) in
-            //get the name
-      //      fetchResultController.object(at: selectedRecVar).userColor = UIColor.purple
-     //       DataController.saveContext()
+//           fetchResultController.object(at: selectedRecVar).userColor = "purple"
+//           DataController.saveContext()
         }
-        
         alert.addAction(colorPurple)
+
+        let colorBlue = UIAlertAction(title: "Blue", style: .default) { (action) in
+//            fetchResultController.object(at: selectedRecVar).userColor = "blue"
+//            DataController.saveContext()
+        }
+        alert.addAction(colorBlue)
+
+        let colorOrange = UIAlertAction(title: "Orange", style: .default) { (action) in
+//            fetchResultController.object(at: selectedRecVar).userColor = "orange"
+//            DataController.saveContext()
+        }
+        alert.addAction(colorOrange)
+
+        let colorGreen = UIAlertAction(title: "Green", style: .default) { (action) in
+//            fetchResultController.object(at: selectedRecVar).userColor = "green"
+//            DataController.saveContext()
+        }
+        alert.addAction(colorGreen)
         
         let cancel = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
         alert.addAction(cancel)
@@ -182,8 +202,9 @@ extension ViewController : UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let selectedRowRec = fetchResultController.object(at: indexPath)
         
-     //   var selectedRecVar = indexPath.row   //store the index
-      //  print(selectedRowRec)
+        let selectedRecVar = selectedRowRec //indexPath  //store the index
+        print("******")
+        print(selectedRecVar)
         
         guard let storedColor = fetchResultController.object(at: indexPath).userColor else {return}
         
@@ -214,7 +235,7 @@ extension ViewController : UITableViewDelegate {
         targetVC.propOwner = selectedRowRec  // pass the owner name back
         targetVC.index = indexPath.row   //pass the index back
         
-        
+        targetVC.storedNavBkgColor = storedColor
         
         //present(targetVC, animated: true, completion: nil)
         
@@ -262,7 +283,6 @@ extension ViewController : NSFetchedResultsControllerDelegate {
             
         } //end switch
         
-        print("From: \(indexPath) To: \(newIndexPath)")
         
     }
     

@@ -11,6 +11,8 @@ import CoreData
 
 class UpdateViewController: UIViewController {
 
+    var storedNavBkgColor = String()
+    
     var propertyName : PropertyName?
 
     @IBOutlet weak var nameTextField: UITextField!
@@ -28,6 +30,22 @@ class UpdateViewController: UIViewController {
         priceTextField.text = "\(pname.propPrice)"
         locationTextField.text = pname.propLocation
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        switch storedNavBkgColor {
+        case "purple":
+            self.navigationController?.navigationBar.barTintColor = UIColor.purple
+        case "blue":
+            self.navigationController?.navigationBar.barTintColor = UIColor.blue
+        case "green":
+            self.navigationController?.navigationBar.barTintColor = UIColor.green
+        case "orange":
+            self.navigationController?.navigationBar.barTintColor = UIColor.orange
+        default :
+            break
+        }
+    }
+    
     
     @IBAction func buttonUpdateTapped(_ sender: Any) {
         guard let name = nameTextField.text,
@@ -62,7 +80,8 @@ class UpdateViewController: UIViewController {
     }
     
     @IBAction func buttonCancelTapped(_ sender: Any) {
-        dismiss(animated: true, completion: nil)
+                navigationController?.popViewController(animated: true) //will go back to prev VC
+        //dismiss(animated: true, completion: nil)
     }
     
  

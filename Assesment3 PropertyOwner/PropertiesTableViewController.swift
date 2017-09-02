@@ -14,6 +14,7 @@ class PropertiesTableViewController: UIViewController {
     var propOwner : PropertyOwner?
     var index : Int?
     
+    var storedNavBkgColor = String()
     
    // var propertyOwners : [PropertyOwner] = []    //MOC
     var propertyNames : [PropertyName] = []      //MOC
@@ -34,6 +35,12 @@ class PropertiesTableViewController: UIViewController {
 
     }
 
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        tableView.reloadData()
+        self.navigationController?.navigationBar.barTintColor = UIColor.white
+    }
+    
     
     func loadData() {   //Fetch Request Database
         
@@ -44,7 +51,7 @@ class PropertiesTableViewController: UIViewController {
         
         print(propOwner!)
         guard let dummStr = propOwner?.name else {return}
-        guard let dummStr2 = propOwner?.userColor else {return}
+       // guard let dummStr2 = propOwner?.userColor else {return}
 
         //filter / NSPredicate
         let predicate = NSPredicate(format: "ANY relateToOwner.name == %@", dummStr)
@@ -83,7 +90,8 @@ class PropertiesTableViewController: UIViewController {
 
             
             destination.propOwner = validPropName
-
+            
+            destination.storedNavBkgColor = storedNavBkgColor
             
             
         }
@@ -168,6 +176,8 @@ extension PropertiesTableViewController : UITableViewDelegate {
         
         targetVC.propertyName = selectedRowRec
         
+        targetVC.storedNavBkgColor = storedNavBkgColor
+
         
         navigationController?.pushViewController(targetVC, animated: true)
 
@@ -208,12 +218,10 @@ extension PropertiesTableViewController : NSFetchedResultsControllerDelegate {
             print("Delete")
             guard let index = indexPath else {return}
             tableView.deleteRows(at: [index], with: .right)
-            
-            
+        
             
         } //end switch
-        
-        print("From: \(indexPath) To: \(newIndexPath)")
+    
         
     }
     
