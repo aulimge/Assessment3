@@ -13,7 +13,7 @@ class ViewController: UIViewController {
 
     //var propertyOwners : [PropertyOwner] = []    //MOC
     var fetchResultController : NSFetchedResultsController<PropertyOwner>!
-    //var selectedRecVar : String
+    var selectedRecVar : String?
     
     var storedNavBkgColor = String()
     
@@ -93,11 +93,11 @@ class ViewController: UIViewController {
     //****** ADD COLOR *********
     @IBAction func buttonColorTapped(_ sender: Any) {
         //assign color
-        let alert = UIAlertController(title: "Choose a defaut Color!", message: "", preferredStyle: .alert)
+        let alert = UIAlertController(title: "Choose a default Color!", message: "", preferredStyle: .alert)
         
         let colorPurple = UIAlertAction(title: "Purple", style: .default) { (action) in
-//           fetchResultController.object(at: selectedRecVar).userColor = "purple"
-//           DataController.saveContext()
+  //         fetchResultController.object(at: selectedRecVar).userColor = "purple"
+   //        DataController.saveContext()
         }
         alert.addAction(colorPurple)
 
@@ -124,6 +124,10 @@ class ViewController: UIViewController {
         
         present(alert, animated: true, completion: nil)
         
+    }
+    
+    func saveColour(_ colour: String) {
+        fetchResultController.object(at: )
     }
     
     func loadData() {   //Fetch Request Database
